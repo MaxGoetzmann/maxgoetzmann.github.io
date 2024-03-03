@@ -25,7 +25,7 @@
             // Only add projects that have GitHub Pages enabled
             if (repo.has_pages) {
               // Skip self
-              if (repo.name === `${username}.github.io`) return;
+              if (repo.name == `${username}.github.io`) return;
 
               const listItem = document.createElement("li");
               const link = document.createElement("a");
