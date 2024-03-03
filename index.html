@@ -24,6 +24,9 @@
           repositories.forEach((repo) => {
             // Only add projects that have GitHub Pages enabled
             if (repo.has_pages) {
+              // Skip self
+              if (repo.name === `${username}.github.io`) return;
+
               const listItem = document.createElement("li");
               const link = document.createElement("a");
               link.href = `https://${username}.github.io/${repo.name}`;
