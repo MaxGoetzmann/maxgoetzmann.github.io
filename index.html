@@ -1,1 +1,43 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My GitHub Projects</title>
+  </head>
+  <body>
+    <h1>My GitHub Projects</h1>
+    <p>Welcome to my GitHub Pages homepage! Below is a list of my projects:</p>
+    <ul id="project-list">
+      <!-- Projects will be added here by JavaScript -->
+    </ul>
+    <script>
+      async function fetchGitHubProjects() {
+        const username = "MaxGoetzmann"; // Replace 'yourusername' with your actual GitHub username
+        const apiUrl = `https://api.github.com/users/${username}/repos?type=owner&sort=updated`;
+
+        try {
+          const response = await fetch(apiUrl);
+          const repositories = await response.json();
+
+          const projectList = document.getElementById("project-list");
+          repositories.forEach((repo) => {
+            // Only add projects that have GitHub Pages enabled
+            if (repo.has_pages) {
+              const listItem = document.createElement("li");
+              const link = document.createElement("a");
+              link.href = `https://${username}.github.io/${repo.name}`;
+              link.textContent = repo.name;
+              listItem.appendChild(link);
+              projectList.appendChild(listItem);
+            }
+          });
+        } catch (error) {
+          console.error("Failed to fetch projects:", error);
+        }
+      }
+
+      fetchGitHubProjects();
+    </script>
+  </body>
+</html>
